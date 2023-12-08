@@ -71,3 +71,7 @@ Route::fallback([ErrorController::class, 'error404'])->name('404');
 
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
