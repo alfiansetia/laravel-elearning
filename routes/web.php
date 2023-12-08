@@ -33,10 +33,17 @@ Auth::routes([
 
 Route::resource('category', CategoryController::class);
 Route::resource('product', ProductController::class);
-Route::resource('cart', ProductController::class);
 
 //About
 Route::get('/about', [AboutController::class, 'about'])->name('about.us');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('cart', CartController::class);
+
+    Route::get('/history', [TransactionController::class, 'history'])->name('history');
+    Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
+});
+
 
 // //Login & Register
 // Route::middleware(['guest'])->group(function () {

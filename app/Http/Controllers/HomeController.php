@@ -22,10 +22,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-
-        $category = Category::with('products')->withCount('products')->get();
+        $query = Category::query();
+        if ($request->filled('search')) {
+            $query->orWhere('name', 'like', "%$request->search%");
+            $query->orWhereRelation('products', 'name', 'like', "%$request->search%");
+        }
+        $category = $query->with('products')->withCount('products')->paginate(8)->withQueryString();
         return view('pages.home', compact('category'))->with(['title' => 'Home']);
     }
 }

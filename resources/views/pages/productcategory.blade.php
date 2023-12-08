@@ -118,7 +118,7 @@
                             <div class="row px-2 pb-3">
                                 @forelse ($products as $item)
                                     <div class="col-lg-3 pt-3 px-2">
-                                        <a href="{{ route('products.show', $item->id) }}"
+                                        <a href="{{ route('product.show', $item->id) }}"
                                             class="text-decoration-none text-black">
                                             <div class="card">
                                                 <img src="{{ asset('storage/images/' . $item->photo) }}" class=""

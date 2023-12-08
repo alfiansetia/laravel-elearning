@@ -117,7 +117,7 @@
             </div>
         @endif
 
-        <form action="/search">
+        <form action="">
             <div class="input-group mb-3 mt-2">
                 <input type="text" class="form-control" placeholder="Search" name="search"
                     value="{{ request('search') }}">

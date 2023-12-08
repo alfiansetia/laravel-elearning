@@ -1,10 +1,5 @@
 @extends('layouts.main')
 
-@php
-    use App\Models\Product;
-    use Illuminate\Support\Facades\Auth;
-@endphp
-
 @section('container')
     @include('components.navbar')
     <div class="container justify-content-center pt-5 min-vh-100">
@@ -64,6 +59,11 @@
             CStudy 2023
         </div>
     </div>
+
+    <form action="{{ route('cart.store') }}" method="POST" id="add_to_cart">
+        @csrf
+        <input type="hidden" name="product" value="{{ $product->id }}">
+    </form>
 @endsection
 
 <script>
@@ -75,49 +75,11 @@
             denyButtonText: "Cancel"
         }).then((result) => {
             if (result.isConfirmed) {
-                addToCart();
-                Swal.fire("Purchase confirmed!", "", "success");
+                // Swal.fire("Purchase confirmed!", "", "success");
+                document.getElementById('add_to_cart').submit();
             } else if (result.isDenied) {
                 Swal.fire("Purchase canceled", "", "info");
             }
         });
-    }
-
-
-    function addToCart() {
-        // Set the quantity to 1
-        const quantity = 1;
-
-        // Fetch the CSRF token
-        const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-
-        // Prepare the data for the request
-        const data = {
-            _token: csrfToken,
-            quantity: quantity
-        };
-
-        // Make an AJAX request to the addToCart endpoint
-        fetch('{{ route('cart.store', $product->id) }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data); // Log the response data
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-            });
-
     }
 </script>

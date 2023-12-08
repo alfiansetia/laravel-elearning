@@ -10,6 +10,22 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
+
+    public function store(Request $request)
+    {
+        $product = Product::find($request->product);
+        if (!$product) {
+            return redirect()->back()->with(['error' => 'Product Not Found!']);
+        }
+        Cart::create([
+            'product_id'    => $product->id,
+            'quantity'      => 1,
+            'price'         => $product->price,
+            'subtotal'      => $product->price * 1,
+            'user_id'       => auth()->id(),
+        ]);
+    }
+
     public function cart()
     {
         // $this->authorize('user');

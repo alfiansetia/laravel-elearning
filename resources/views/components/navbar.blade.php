@@ -66,18 +66,18 @@
                         @auth
                             <a class="nav-link dropdown-toggle pe-0 fw-bold" style="color: #023C82" href="#"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ Auth::user()->name }}
+                                {{ auth()->user()->name }}
                             </a>
                         @endauth
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a></li>
                             @can('user')
-                                <li><a class="dropdown-item" href="/history">History</a></li>
+                                <li><a class="dropdown-item" href="{{ route('history') }}">History</a></li>
                             @endcan
                             <li>
-                                <form action="/logout" method="POST">
+                                <form action="{{ route('logout') }}" method="POST">
                                     @csrf
-                                    <button class="dropdown-item" type="submit" href="/logout">Logout</button>
+                                    <button class="dropdown-item" type="submit">Logout</button>
                                 </form>
                             </li>
                         </ul>
