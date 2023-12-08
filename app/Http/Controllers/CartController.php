@@ -12,11 +12,11 @@ class CartController extends Controller
 {
     public function cart()
     {
-        $this->authorize('user');
+        // $this->authorize('user');
         $product = Cart::paginate(4);
         return view('customer.cart', [
             'title' => 'Cart',
-            'products'=> $product,
+            'products' => $product,
             'count' => 0
         ]);
     }
@@ -33,7 +33,7 @@ class CartController extends Controller
                 'quantity' => $request->quantity,
                 'price' => $product->price,
                 'totalprice' => $product->price * $request->quantity,
-                'UserID' => $user//->UserID = Auth::user()->UserID
+                'UserID' => $user //->UserID = Auth::user()->UserID
             ]);
         } else {
             $cart->quantity += $request->quantity;
@@ -49,6 +49,4 @@ class CartController extends Controller
         $cart->delete();
         return redirect()->route('cart')->with('success', 'Product removed from cart successfully!');
     }
-
-
 }

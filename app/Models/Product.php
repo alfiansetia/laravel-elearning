@@ -15,16 +15,16 @@ class Product extends Model
 
     public function scopeFilter($query, array $filters) //untuk search
     {
-        $query->when($filters['search'] ?? false, function($query, $search){
+        $query->when($filters['search'] ?? false, function ($query, $search) {
             return $query->where('name', 'like', '%' . $search . '%')
-            //kalau mau berdasarkan isi deskripsi product juga, uncomment yg bawah
-            ->orWhere('detail', 'like', '%' . $search . '%');
+                //kalau mau berdasarkan isi deskripsi product juga, uncomment yg bawah
+                ->orWhere('detail', 'like', '%' . $search . '%');
         });
     }
 
     public function category()
     {
-        return $this->belongsTo('App\Models\Category','CategoryID'); //ini masih bingung
+        return $this->belongsTo(Category::class, 'CategoryID'); //ini masih bingung
     }
 
     public function isInCart($userId)
@@ -38,7 +38,6 @@ class Product extends Model
             ->where('UserID', $userId)
             ->exists();
     }
-
 }
 //     public function user()
 //     {
