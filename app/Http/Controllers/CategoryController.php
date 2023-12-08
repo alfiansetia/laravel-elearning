@@ -10,18 +10,13 @@ use App\Models\Product;
 
 class CategoryController extends Controller
 {
-    public function showProductByCategory(Category $category)
+
+    public function show(Category $category)
     {
-        // dd($category);
-        $products = DB::table('products')
-            ->join('categories', 'products.CategoryID', '=', 'categories.CategoryID')
-            ->select('products.*')
-            ->where('products.CategoryID', '=', $category->CategoryID)
-            ->paginate(8);
         return view('pages.productcategory', [
-            'title' => $category->categoryName,
-            'products' => $products,
-            'category' => $category,
+            'title'     => $category->name,
+            'category'  => $category->load('products'),
+            'products'  => Product::where('category_id', $category->id)->paginate(8),
         ]);
     }
 }

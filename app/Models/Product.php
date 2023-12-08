@@ -10,8 +10,8 @@ class Product extends Model
 {
     use HasFactory;
     // use SoftDeletes;
-    protected $primaryKey = 'ProductID';
-    protected $guarded = ['ProductID'];
+    // protected $primaryKey = 'ProductID';
+    protected $guarded = ['id'];
 
     public function scopeFilter($query, array $filters) //untuk search
     {
@@ -24,7 +24,7 @@ class Product extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'CategoryID'); //ini masih bingung
+        return $this->belongsTo(Category::class);
     }
 
     public function isInCart($userId)
@@ -34,8 +34,8 @@ class Product extends Model
             return false; // If the user is not logged in, the product is not in the cart
         }
 
-        return Cart::where('ProductID', $this->ProductID)
-            ->where('UserID', $userId)
+        return Cart::where('product_id', $this->product_id)
+            ->where('user_id', $userId)
             ->exists();
     }
 }

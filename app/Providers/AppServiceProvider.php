@@ -30,18 +30,18 @@ class AppServiceProvider extends ServiceProvider
         view()->composer(
             'components.navbar',
             function ($view) {
-                $view->with('categories', \App\Models\Category::all());
-                $view->with('users', \App\Models\User::all());
+                $view->with('categories', Category::withCount('products')->get());
+                $view->with('users', User::all());
             }
         );
 
         Paginator::useBootstrap();
 
-        Gate::define('admin', function(User $user){
+        Gate::define('admin', function (User $user) {
             return $user->isadmin == true; //1
         });
 
-        Gate::define('user', function(User $user){
+        Gate::define('user', function (User $user) {
             return $user->isadmin != true; //0
         });
     }

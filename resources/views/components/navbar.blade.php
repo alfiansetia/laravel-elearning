@@ -3,9 +3,11 @@
     <nav class="navbar navbar-expand-lg navbar-light">
 
         <div class="container">
-        <a class="navbar-brand" href="#"><img src="{{ asset('storage/images/Logo.png') }}" alt="Logo" style="width: 50px; height: auto;"></a>
+            <a class="navbar-brand" href="#"><img src="{{ asset('storage/images/Logo.png') }}" alt="Logo"
+                    style="width: 50px; height: auto;"></a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -16,19 +18,24 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
 
-                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle fw-bold" style="color: #023C82" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Category
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold" style="color: #023C82" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Category
                         </a>
                         <ul class="dropdown-menu">
-                            @foreach ($categories as $category)
-                                <li><a class="dropdown-item" href="/category/{{ $category->CategoryID }}">{{ $category->categoryName }}</a></li>
+                            @foreach ($categories as $item)
+                                <li><a class="dropdown-item"
+                                        href="{{ route('category.show', $item->id) }}">{{ $item->name }}
+                                        ({{ $item->products_count }})
+                                    </a>
+                                </li>
                             @endforeach
                         </ul>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/about">About Us</a>
+                        <a class="nav-link" href="{{ route('about.us') }}">About Us</a>
                     </li>
                 </ul>
 
@@ -42,22 +49,23 @@
                         </div>
                     </div>
                 </form>                 --}}
-            
+
                 <ul class="navbar-nav d-flex">
                     @can('user')
-                    {{-- @auth --}}
+                        {{-- @auth --}}
                         <li>
                             <a href="/cart" class="nav-link" aria-current="page">
                                 <p>My Library</p>
                             </a>
                         </li>
-                    {{-- @endauth --}}
+                        {{-- @endauth --}}
                     @endcan
-    
+
                     <li class="nav-item dropdown">
                         {{-- User yang udah login --}}
                         @auth
-                            <a class="nav-link dropdown-toggle pe-0 fw-bold" style="color: #023C82" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle pe-0 fw-bold" style="color: #023C82" href="#"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{ Auth::user()->name }}
                             </a>
                         @endauth
@@ -74,7 +82,7 @@
                             </li>
                         </ul>
                     </li>
-    
+
                     @guest
                         <li>
                             <a href="/login" class="nav-link fw-bold" aria-current="page">Login</a>

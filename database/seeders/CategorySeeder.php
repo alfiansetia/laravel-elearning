@@ -14,32 +14,21 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        Category::create([
-            'CategoryName' => 'C',
-        ]);
-        Category::create([
-            'CategoryName' => 'Java',
-        ]);
-        Category::create([
-            'CategoryName' => 'PHP',
-        ]); Category::create([
-            'CategoryName' => 'Python',
-        ]);
-        Category::create([
-            'CategoryName' => 'Javascript',
-        ]);
-        Category::create([
-            'CategoryName' => 'HTML',
-        ]);
-        Category::create([
-            'CategoryName' => 'CSS',
-        ]);
-        Category::create([
-            'CategoryName' => 'C++',
-        ]);
-        Category::create([
-            'CategoryName' => 'C#',
-        ]);
-        
+        $name = [
+            'C',
+            'Java',
+            'PHP',
+            'Python',
+            'Javascript',
+            'HTML',
+            'CSS',
+            'C++',
+            'C#',
+        ];
+        foreach ($name as $item) {
+            Category::create([
+                'name' => $item,
+            ]);
+        }
     }
 }

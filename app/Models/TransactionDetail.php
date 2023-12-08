@@ -10,16 +10,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class TransactionDetail extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'TransactionDetailID';
-    protected $guarded = ['TransactionDetailID'];
 
-    public function headerTransaction()
+    protected $guarded = ['id'];
+
+    public function transaction()
     {
-        return $this->belongsTo(HeaderTransaction::class, 'HeaderID', 'HeaderTransactionID');
+        return $this->belongsTo(Transaction::class);
     }
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'ProductID', 'ProductID');
+        return $this->belongsTo(Product::class);
     }
 }

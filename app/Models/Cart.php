@@ -12,25 +12,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Cart extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'CartID';
-    protected $guarded = ['CartID'];
+    protected $guarded = ['id'];
 
     public static function boot()
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->UserID = Auth::user()->UserID;
+            $model->user_id = Auth::user()->id;
         });
-        self::addGlobalScope(fn (Builder $builder) => $builder->where('UserID', Auth::user()->UserID));
+        self::addGlobalScope(fn (Builder $builder) => $builder->where('user_id', Auth::user()->id));
     }
 
     public function user()
     {
-        return $this->hasOne(User::class, 'UserID', 'UserID');
+        return $this->belongsTo(User::class);
     }
 
     public function products()
     {
-        return $this->hasMany(Product::class, 'ProductID', 'ProductID');
+        return $this->hasMany(Product::class);
     }
 }

@@ -19,27 +19,27 @@ class UserSeeder extends Seeder
         User::factory()->count(10)->create();
 
         User::create([
-            'name' => 'Admin BantuKios',
-            'email' => 'admin@gmail.com',
+            'name'              => 'Admin BantuKios',
+            'email'             => 'admin@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('adminadmin'), // password
-            'country' => 'Indonesia',
-            'gender' => 'Male',
-            'dob' => '2011-02-05',
-            'isadmin' => 1,
-            'remember_token' => Str::random(10),
+            'password'          => Hash::make('admin12345'),
+            'country'           => 'Indonesia',
+            'gender'            => 'Male',
+            'dob'               => '2011-02-05',
+            'isadmin'           => 1,
+            'remember_token'    => Str::random(10),
         ]);
 
         User::create([
-            'name'=> 'User BantuKios',
-            'email' => ' ss@gmail.com',
+            'name'              => 'User BantuKios',
+            'email'             => 'user@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('useruser'), // password
-            'country'=> 'Japan',
-            'gender'=> 'female',
-            'dob'=> '2011-02-05',
-            'isadmin'=> 0,
-            'remember_token' => Str::random(10),
+            'password'          => Hash::make('user12345'),
+            'country'           => 'Japan',
+            'gender'            => 'female',
+            'dob'               => '2011-02-05',
+            'isadmin'           => 0,
+            'remember_token'    => Str::random(10),
         ]);
     }
 }

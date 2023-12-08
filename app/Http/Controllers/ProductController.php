@@ -5,34 +5,34 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Models\HeaderTransaction;
 use App\Models\TransactionDetail;
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    public function show(Product $product)
+    {
+        return view('pages.productdetail', [
+            'title'     => $product->name,
+            'product'   => $product->load('category'),
+        ]);
+    }
+
+
     public function home()
     {
-        $category = Category::all();
-        return view('pages.home', [
-            'title' => 'Home',
-            'Categories' => $category,  
-        ]);
+        $category = Category::with(['products' => function ($query) {
+            $query->take(7);
+        }])->get();
+        return view('pages.home', compact('category'))->with(['title' => 'Home']);
     }
 
-    public function showProductdetail(Product $products)
+
+    public function search()
     {
-        // dd($products);
-        return view('pages.productdetail', [
-            'title' => $products->name,
-            'product' => $products,
-        ]);
-    }
-
-    public function search(){
         $data = Product::query();
         return view('pages.search', [
             'title' => 'Search',
@@ -131,7 +131,8 @@ class ProductController extends Controller
         return redirect('/manage')->with('success', 'Product Updated!');
     }
 
-    public function deleteProductAdmin(Product $product){
+    public function deleteProductAdmin(Product $product)
+    {
         // dd($product);
         // dd($request->all(), $product);
         $this->authorize('admin');
@@ -148,12 +149,12 @@ class ProductController extends Controller
     {
         $data = Product::where('ProductID', $product->ProductID)->get();
         // dd($product->ProductID);
-        $headerTransaction = HeaderTransaction::create([
+        $headerTransaction = Transaction::create([
             'UserID' => Auth::user()->UserID,
             'totalprice' => $product->price * $request->quantity,
         ]);
 
-        foreach($data as $item){
+        foreach ($data as $item) {
             $transactionDetail = new TransactionDetail();
             // $product = Product::where('ProductID', $item->ProductID)->first();
             // $product->save();
