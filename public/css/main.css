@@ -1,0 +1,75 @@
+.karturegister
+{
+    width: 500px;
+}
+
+.kolom
+{
+    overflow-x: auto;
+}
+
+.kolom::-webkit-scrollbar
+{
+    height: 10px;
+}
+
+.kolom::-webkit-scrollbar-thumb
+{
+    background: grey;
+    border-radius: 10px;
+}
+
+.kolom::-webkit-scrollbar-track
+{
+    background: darkgrey;
+    /* border-radius: 10px; */
+}
+
+.kartu
+{
+    margin-bottom: -5px;
+}
+
+.img-fluid
+{
+    height: 100%;
+}
+
+.a
+{
+    width: 700px;
+}
+
+.marginbottom
+{
+    margin-bottom: 60px;
+}
+
+.shadowtop {
+    box-shadow: 0px 0px 40px -5px rgba(175, 175, 175, 0.75);
+}
+
+.responsive-img {
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
+}
+
+/* Define a section for the team */
+.team-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Define a class for each team member */
+.team-member {
+    width: 350px;
+    height: 220px;
+    margin: 20px;
+    text-align: center;
+}
+
+.latarabout{
+    background-color: #063F83;
+}
