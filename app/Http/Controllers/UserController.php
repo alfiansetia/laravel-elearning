@@ -9,7 +9,7 @@ class UserController extends Controller
 {
     public function profile()
     {
-        $user = User::where('UserID', auth()->user()->UserID)->first();
+        $user = auth()->user();
         return view('pages.profile', [
             'title' => 'Profile',
             'user' => $user
